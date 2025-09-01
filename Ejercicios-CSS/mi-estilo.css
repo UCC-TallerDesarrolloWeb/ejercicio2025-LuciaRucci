@@ -1,0 +1,36 @@
+div {
+            border: 1px solid rgb(15, 77, 70);
+            margin: 20px;
+            padding: 10px;
+            background-color: rgb(243, 236, 210);
+            border-radius: 15px;
+            box-shadow: 8px 10px rgba(15, 77, 70, 0.15);
+        }
+        #logo-cv {
+            width: 20%;
+            float: left;
+            border-radius: 50%;
+        }
+
+        body {
+            text-align: center;
+            font-family: "Noto Sans", sans-serif;
+            background: linear-gradient(to right, rgb(243, 236, 210), rgb(15, 77, 70));
+        }
+
+        h3{
+            text-shadow: 10px 5px rgb(166, 192, 189);
+        }
+
+        .titulo {
+            text-decoration: underline;
+            font-size: 30px;
+        }
+
+        .pos-fix {
+            position: fixed;
+            top: 0;
+        }
+
+    
+   
