@@ -1,16 +1,17 @@
 /**
- * Descripción
- * @method Nombre de la función
- * @param Parámetro A
- * @param Parámetro B
+ * Convierte las unidades ingresadas por el usuario
+ * @method convertirUnidades
+ * @param  {string} Parámetro  unidad - unidad ingresada: metro, pie, pulgada, yarda
+ * @param {number} Parámetro valor - valor numerico ingresado por el usuario
  * @return Valor que retorna
  */
 
-function convertirUnidades(unidad, valor) {
+const convertirUnidades= (unidad, valor) => {
     let metro, pulgada, pie, yarda;
 
-    console.log(valor); 
-    console.log(isNaN(valor)); 
+    if (valor.includes(",")) {
+        valor = valor.replace(",",".");
+    }
 
     if(isNaN(valor)) { 
         alert("El valor ingresado no es correcto"); 
@@ -45,9 +46,58 @@ function convertirUnidades(unidad, valor) {
     }
 }
 
-    document.getElementById("metro").value = metro;
-    document.getElementById("pulgada").value = pulgada;
-    document.getElementById("pie").value = pie;
-    document.getElementById("yarda").value = yarda; 
+    document.getElementById("metro").value =  Number(metro).toFixed(2);
+    document.getElementById("pulgada").value = Number(pulgada).toFixed(2);
+    document.getElementById("pie").value = Number(pie).toFixed(2);
+    document.getElementById("yarda").value = Math.round(yarda*100)/100; 
 
 }
+
+let convertirGR = (id, valor) => {
+    let cantgrados, cantradianes;
+    if(id=="grados")  {
+        cantgrados = valor;
+        cantradianes = cantgrados*Math.PI/180;
+        document.getElementById("radianes").value = cantradianes;
+
+    }  else if(id=="radianes")  {
+        cantradianes = valor;
+        cantgrados = cantradianes*180/Math.PI;
+        document.getElementById("grados").value = cantgrados;
+
+    }
+}
+
+let mostrarOcultarDiv = (id) => {
+   // if (id=="mostrarDiv") {
+    //    document.getElementByName("unDiv")[0].style.display = "block";
+   // } else if (id=="ocultarDiv") {
+   //     document.getElementByName("unDiv")[0].style.display = "none";
+   // }
+
+   const mostrar = id == "mostrarDiv" ? "block" : "none";
+   document.getElementsByClassName("color-div")[0].style.display = mostrar;
+
+}
+
+let sumar = () => {
+    console.log("sumar");
+    let sum1 = document.getElementById("nums1").value;
+    let sum2 = document.getElementById("nums2").value;
+
+    if (isNaN(sum1) || isNaN(sum2)) {
+
+        alert("Una de las variables ingresadas no es un numero");
+    } else {
+        document.getElementById("totalS").value = Number(sum1) + Number(sum2);
+    }
+
+}
+
+const mostrarDetalle = () => {
+  document.getElementById("detalle").style.display = "block";
+};
+
+let cerrarModal = () => {
+  document.getElementById("detalle").style.display = "none";
+};
