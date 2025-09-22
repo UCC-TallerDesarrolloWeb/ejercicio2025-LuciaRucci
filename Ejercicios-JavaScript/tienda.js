@@ -63,13 +63,13 @@ const productos = [
 ];
 
 
-let cargarProductos = () => {
+let cargarProductos = (prod = productos) => {
   let contenido = "";
-  productos.forEach((elemento, id) => {
+  prod.forEach((elemento, id) => {
     contenido += `<div>
         <img src="images/${elemento.imagen}" alt="${elemento.nombre}"/>
         <h3>${elemento.nombre}</h3>
-        <p>${elemento.precio}</p>
+        <p>${formatPrice(elemento.precio)}</p>
         <button type="button" onclick="mostrarModal(${id})">
    Ver Detalle del Producto
 </button>
@@ -103,32 +103,53 @@ let agregarAlcarrito = (id) => {
   carritoList.push(id);
   console.log(carritoList);
   localStorage.setItem("carrito", JSON.stringify(carritoList));
+  contarProductos();
 };
 
 
 let cargarCarrito = () => {
-  let carritoList = localStorage.getItem("carrito");
   let contenido = "";
+  const carrito = JSON.parse(localStorage.getItem("carrito"));
+  let total = 0;
 
-  if (carritoList == null) {
-    contenido = "<div>Su carrito esta vacio.</div>";
-  } else {
-    carritoList = JSON.parse(carritoList);
-    carritoList.forEach((num, id) => {
-      contenido += `<div>
-        <h3>${productos[num].nombre}</h3>
-        <p>${productos[num].precio}</p>
-        <button type="button" onclick="eliminarProducto(${id})">Eliminar del carrito</button>
-      </div>`;
-    });
-    
-  contenido += `<button type="button" onclick="vaciarCarrito()">Vaciar Carrito</button>`;
+  if (carrito == null || carrito.length === 0) {
+    contenido = "<div>Su carrito está vacío.</div>";
+    document.getElementById("mostrar-carrito").innerHTML = contenido; 
+    return; 
   }
-    document.getElementById("mostrar-carrito").innerHTML = contenido;
+
+  const listProd = [];
+  const listCant = [];
+
+  carrito.forEach((num) => {
+    if (!listProd.includes(num)) {
+      listProd.push(num);
+      listCant.push(1);
+    } else {
+      const inx = listProd.indexOf(num);
+      listCant[inx] += 1;
+    }
+  });
+
+  listProd.forEach((num, id) => {
+    const element = productos[num];
+    contenido += `<div>
+        <h3>${element.nombre}</h3>
+        <p>${element.precio}</p>
+        <p>Cantidad: ${listCant[id]}</p>
+        <button type="button" onclick="eliminarProducto(${id})">Eliminar Producto</button>
+    </div>`;
+    total += element.precio * listCant[id];
+  });
+
+  contenido += `<p><strong>Total: ${formatPrice(total)}</strong></p>`;
+  contenido += `<button type="button" onClick="vaciarCarrito()">Vaciar Carrito</button>`;
+  document.getElementById("mostrar-carrito").innerHTML = contenido;
 };
 
 let vaciarCarrito = () => {
   localStorage.removeItem("carrito");
+  contarProductos();
   window.location.reload();
 }
 
@@ -141,5 +162,101 @@ let eliminarProducto = (id) => {
   } else {
     localStorage.removeItem("carrito");
   }
+  contarProductos();
   window.location.reload();
 };
+
+let filtrarProductos = () => {
+    let searchWord = document.getElementById("search").value;
+    let min = document.getElementById("price-min").value;
+    let max = document.getElementById("price-max").value;
+    let marca = document.getElementById("marca").value;
+    let prot = document.getElementById("protectores").checked;
+    let entr = document.getElementById("entrenamiento").checked;
+    let dob = document.getElementById("dobok").checked;
+
+    let newLista = productos;
+
+    if (searchWord) {
+        newLista = newLista.filter(
+          (prod) => 
+          prod.nombre.toLowerCase().includes(searchWord.toLowerCase()) || 
+          prod.description.toLowerCase().includes(searchWord.toLowerCase())
+        );
+    }
+
+    if (min) {
+        newLista = newLista.filter((prod) => prod.precio >= Number(min));
+    }
+
+    if (max) {
+        newLista = newLista.filter((prod) => prod.precio <= Number(max));
+    }
+
+    if (marca !== "Todas") {
+        newLista = newLista.filter((prod) => prod.marca === marca);
+    }
+
+        let category = [];
+    prot ? category.push("Protectores") : "";
+    entr ? category.push("Entrenamiento") : "";
+    dob  ? category.push("Dobok") : "";
+
+if (category.length > 0) {
+    newLista = newLista.filter((prod) => category.includes(prod.categoria));
+}
+
+    cargarProductos(newLista);
+};
+
+let formatPrice = (price) => {
+  return new Intl.NumberFormat("es-AR", {
+    currency: "ARS",
+    style: "currency",
+  }).format(price);
+};
+
+let contarProductos = () => {
+  const getCart = JSON.parse(localStorage.getItem("carrito"));
+
+  if (getCart != null) {
+    document.getElementById("cant-prod").innerText = getCart.length;
+  }
+};
+
+let orderCatalog = () => {
+  const opt = document.getElementById("order").value;
+
+  let newProductos = productos.slice();
+
+  switch (opt) {
+    case "menor":
+      newProductos.sort((a, b) => a.precio - b.precio);
+      break;
+
+    case "mayor":
+      newProductos.sort((a, b) => b.precio - a.precio);
+      break;
+
+    case "a-z":
+      newProductos.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre, "es", { sensitivity: "base" })
+      );
+      break;
+
+    case "z-a":
+      newProductos.sort((a, b) =>
+        b.nombre.localeCompare(a.nombre, "es", { sensitivity: "base" })
+      );
+      break;
+
+    default:
+      newProductos.sort((a, b) => a.precio - b.precio);
+  }
+
+  cargarProductos(newProductos);
+};
+
+
+
+

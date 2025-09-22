@@ -1,62 +1,82 @@
 <!DOCTYPE html>
 <html lang="es"> 
-    <head> 
-        <title>Catalogo de Productos</title>
-        <link rel="stylesheet" href="store.css" type="text/css">
-        <script type="text/javascript" src="tienda.js"></script>
-    </head>
-    <body class="grid-container" onload="cargarProductos()">
-        <header class="item1">Catalogo de poductos</header>
-            <nav class="item2">
-                <a href="productos.html">Catalogo de productos</a> 
-                <a href="carrito.html">Carrito de compras</a>
+<head> 
+  <meta charset="UTF-8">
+  <title>Catálogo de productos</title>
+  <link rel="stylesheet" href="store.css" type="text/css">
+  <script type="text/javascript" src="tienda.js"></script>
+</head>
+<body class="grid-container" onload="cargarProductos(); contarProductos()">
 
-            </nav>
-            <aside class="item3">
-                <form>
-                    <fieldset>
-                        <legend>Busqueda</legend>
-                        <label>Buscar:</label>
-                        <input type="text" name="search" id="search" placeholder="Ingrese el producto">
-                    </fieldset>
-                    <fieldset>
-                        <legend>Precios</legend>
-                        <p>
-                        <label for="price-min">Minimo:</label>
-                        <input type="number" name="min" id="price-min" value="0" placeholder="0">
-                        </p>
-                        <p>
-                        <label for="price-max">Maximo:</label>
-                        <input type="number" name="max" id="price-max" min="0" placeholder="10000">
-                        </p>
-                        </fieldset>
-                    </p>
-                    <fieldset>
-                        <legend>Tipo de productos</legend>
-                        <p>
-                        <input type="checkbox" id="protectores" name="tipo" value="protectores">
-                        <label for="protectores">Protectores</label>
-                        </p>
-                        <p>
-                        <input type="checkbox" id="dobok" name="tipo" value="dobok">
-                        <label for="dobok">Dobok</label>
-                        </p>
-                        <p>
-                        <input type="checkbox" id="entrenamiento" name="tipo" value="entrenamiento">
-                        <label for="entrenamiento">Entrenamiento</label>
-                        </p>
-                </form>
-            </aside>
-             <dialog id="modal">
-                    <h2>Detalle del Producto</h2>
-                    <h3 id="titulo-producto">Cabezal cerrado</h3>
-                    <p id="descr-producto">El cabezal de sparring. Disponible en talle del 1 al 3.
-                        En color rojo y azul
-                    </p>
-                    <button type="button" onclick="cerrarModal()">Cerrar</button>
-            </dialog>
-        <main class="item4" id="mostrar-catalogo"> 
-        </main>
-        <footer class="item5">Info de contacto</footer>
-    </body>
+  <header class="item1">Catálogo de productos</header>
+
+  <nav class="item2">
+    <a href="productos.html">Catálogo de productos</a> 
+    <a href="carrito.html">Carrito de compras</a>
+    <div id="cant-prod">0</div>
+  </nav>
+
+  <aside class="item3">
+    <form onsubmit="return false;">
+      <fieldset>
+        <legend>Búsqueda</legend>
+        <label for="search">Buscar:</label>
+        <input type="text" id="search" placeholder="Ingrese el producto" oninput="filtrarProductos()">
+      </fieldset>
+
+      <fieldset>
+        <legend>Precios</legend>
+        <p>
+          <label for="price-min">Mínimo:</label>
+          <input type="number" id="price-min" min="0" value="" placeholder="0" oninput="filtrarProductos()">
+        </p>
+        <p>
+          <label for="price-max">Máximo:</label>
+          <input type="number" id="price-max" min="0" placeholder="10000" oninput="filtrarProductos()">
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Marca</legend>
+        <select id="marca" onchange="filtrarProductos()">
+          <option value="Todas">Todas</option>
+          <option value="Gran Marc">Gran Marc</option>
+          <option value="Daedo">Daedo</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tipo de productos</legend>
+        <p>
+          <input type="checkbox" id="protectores" onchange="filtrarProductos()">
+          <label for="protectores">Protectores</label>
+        </p>
+        <p>
+          <input type="checkbox" id="dobok" onchange="filtrarProductos()">
+          <label for="dobok">Dobok</label>
+        </p>
+        <p>
+          <input type="checkbox" id="entrenamiento" onchange="filtrarProductos()">
+          <label for="entrenamiento">Entrenamiento</label>
+        </p>
+      </fieldset>
+  <select id="order" onchange="orderCatalog()">
+    <option value="menor">Precio: Menor a Mayor</option>
+    <option value="mayor">Precio: Mayor a Menor</option>
+    <option value="a-z">Nombre: A-Z</option>
+    <option value="z-a">Nombre: Z-A</option>
+  </select>
+</form>
+  </aside>
+
+  <dialog id="modal">
+    <h2>Detalle del Producto</h2>
+    <h3 id="titulo-producto">Cabezal cerrado</h3>
+    <p id="descr-producto">El cabezal de sparring. Disponible en talle del 1 al 3. En color rojo y azul</p>
+    <button type="button" onclick="cerrarModal()">Cerrar</button>
+  </dialog>
+
+  <main class="item4" id="mostrar-catalogo"></main>
+  <footer class="item5">Info de contacto</footer>
+</body>
 </html>

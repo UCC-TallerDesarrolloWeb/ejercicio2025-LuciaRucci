@@ -65,3 +65,15 @@
                 background-color: var(--color-primario);
                 color: var(--color-letra);
             }
+
+            #cant-prod {
+            background-color: var(--color-primario);
+            color: var(--color-letra);
+            display: inline;
+            border-radius: 50%;
+            padding: 7px;
+            }
+
+#mostrar-carrito {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
