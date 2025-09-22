@@ -6,6 +6,16 @@
  * @return Valor que retorna
  */
 
+let mostrarModal = () => {
+  document.getElementById("modal").style.display = "block";
+};
+
+let cerrarModal = () => {
+  document.getElementById("modal").style.display = "none";
+};
+
+
+
 const convertirUnidades= (unidad, valor) => {
     let metro, pulgada, pie, yarda;
 
@@ -89,15 +99,40 @@ let sumar = () => {
 
         alert("Una de las variables ingresadas no es un numero");
     } else {
-        document.getElementById("totalS").value = Number(sum1) + Number(sum2);
+        document.getElementById("totals").innerHTML = Number(sum1) + Number(sum2);
     }
 
 }
 
-const mostrarDetalle = () => {
-  document.getElementById("detalle").style.display = "block";
-};
+let restar = () => {
+    console.log("restar");
+    let res1 = document.getElementById("numr1").value;
+    let res2 = document.getElementById("numr2").value;  
+    if (isNaN(res1) || isNaN(res2)) {
 
-let cerrarModal = () => {
-  document.getElementById("detalle").style.display = "none";
-};
+        alert("Una de las variables ingresadas no es un numero");
+    } else {
+        document.getElementById("totalR").innerHTML = Number(res1) - Number(res2);
+    }   
+}
+let multiplicar = () => {
+    console.log("multiplicar");
+    let mul1 = document.getElementById("numm1").value;
+    let mul2 = document.getElementById("numm2").value;  
+    if (isNaN(mul1) || isNaN(mul2)) {
+        alert("Una de las variables ingresadas no es un numero");
+    } else {
+        document.getElementById("totalM").innerHTML = Number(mul1) * Number(mul2);
+    }
+}   
+let dividir = () => {
+    console.log("dividir");
+    let div1 = document.getElementById("numd1").value;
+    let div2 = document.getElementById("numd2").value;  
+    if (isNaN(div1) || isNaN(div2)) {
+        alert("Una de las variables ingresadas no es un numero");
+    } else {
+        document.getElementById("totalD").innerHTML = Number(div1) / Number(div2);
+    }   
+}
+

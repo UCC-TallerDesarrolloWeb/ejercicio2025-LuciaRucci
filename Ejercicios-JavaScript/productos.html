@@ -3,13 +3,13 @@
     <head> 
         <title>Catalogo de Productos</title>
         <link rel="stylesheet" href="store.css" type="text/css">
-        <script type="text/javascript" src="misFunciones.js"></script>
+        <script type="text/javascript" src="tienda.js"></script>
     </head>
-    <body class="grid-container">
+    <body class="grid-container" onload="cargarProductos()">
         <header class="item1">Catalogo de poductos</header>
             <nav class="item2">
                 <a href="productos.html">Catalogo de productos</a> 
-                <a href="">Carrito de compras</a>
+                <a href="carrito.html">Carrito de compras</a>
 
             </nav>
             <aside class="item3">
@@ -47,38 +47,15 @@
                         </p>
                 </form>
             </aside>
-        <main class="item4"> 
-            <dialog id="detalle">
-                <h2>Detalle del Producto</h2>
-                <h3>Cabezal Cerrado</h3>
-                <p>Este producto viene del talle 1 al 3</p>
-                <button type="button" onclick="cerrarModal()">Cerrar</button>
+             <dialog id="modal">
+                    <h2>Detalle del Producto</h2>
+                    <h3 id="titulo-producto">Cabezal cerrado</h3>
+                    <p id="descr-producto">El cabezal de sparring. Disponible en talle del 1 al 3.
+                        En color rojo y azul
+                    </p>
+                    <button type="button" onclick="cerrarModal()">Cerrar</button>
             </dialog>
-            <div> 
-                <img src="../Ejercicios-JavaScript/images/cabezal-cerrado.webp" alt="Cabezal Cerrado"> 
-                <h3>Cabezal Cerrado</h3>
-                <button type="button" onclick="mostrarDetalle()">Ver Detalle</button>
-            </div>
-            <div> 
-                <img src="../Ejercicios-JavaScript/images/escudo-potencia.webp" alt="Escudo de Potencia"> 
-                <h3>Escudo de Potencia</h3>
-            </div>
-            <div> 
-                <img src="../Ejercicios-JavaScript/images/foco-con-dedos.webp" alt="Foco con Dedos"> 
-                <h3>Foco con Dedos</h3>
-            </div>
-            <div> 
-                <img src="../Ejercicios-JavaScript/images/protectores-manos.webp" alt="Protectores de Manos"> 
-                <h3>Protectores de Manos</h3>
-            </div>
-            <div> 
-                <img src="../Ejercicios-JavaScript/images/dobok.webp" alt="Dobok"> 
-                <h3>Dobok</h3>
-            </div>
-            <div> 
-                <img src="../Ejercicios-JavaScript/images/protectores-pie.webp" alt="Protector de Pie"> 
-                <h3>Protector de Pie</h3>
-            </div>
+        <main class="item4" id="mostrar-catalogo"> 
         </main>
         <footer class="item5">Info de contacto</footer>
     </body>
