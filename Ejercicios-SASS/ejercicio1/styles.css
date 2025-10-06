@@ -1,0 +1,22 @@
+.caja h2 {
+  color: #0b072e;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.caja p {
+  color: rgb(16, 50, 50);
+}
+
+body {
+  background-color: #7799b0;
+  color: #0b072e;
+}
+
+.caja {
+  background-color: lightblue;
+  border: 4px solid black;
+  box-shadow: 0 0 2px black;
+  color: rgb(218, 90, 90);
+  margin: 20px;
+}
+
+/*# sourceMappingURL=styles.css.map */
